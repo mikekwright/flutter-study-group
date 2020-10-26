@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'package:dart_state/player_state.dart';
 
 class MusicPlayer {
   static final _playlists = {
@@ -32,12 +32,7 @@ class MusicPlayer {
     ]
   };
 
-  final _random = Random();
-
-  var _currentSongs = [];
-  var _songIndex = 0;
-  var _shuffleOn = false;
-  var _paused = false;
+  PlayerState _currentState;
 
   MusicPlayer(String playlist) {
     if (!_playlists.containsKey(playlist)) {
@@ -45,49 +40,23 @@ class MusicPlayer {
       throw Exception('Playlist missing');
     } else {
       print('Loaded playlist: $playlist');
-      _currentSongs = _playlists[playlist];
-      _songIndex = 0;
-      _paused = true;
+      _currentState = PlaylistPlayState(_playlists[playlist]);
     }
   }
 
   void Next() {
-    if (_shuffleOn) {
-      _songIndex = _random.nextInt(_currentSongs.length);
-    } else {
-      _songIndex = (_songIndex + 1) % _currentSongs.length;
-    }
-
-    if (_paused) {
-      print('Setup next song: ${_currentSongs[_songIndex]}');
-    } else {
-      print('Playing next song: ${_currentSongs[_songIndex]}');
-    }
+    _currentState = _currentState.Next();
   }
 
   void Play() {
-    if (_paused) {
-      _paused = false;
-      print('Continuing song: ${_currentSongs[_songIndex]}');
-    } else {
-      print('Already playing song: ${_currentSongs[_songIndex]}');
-    }
+    _currentState = _currentState.Play();
   }
 
   void Pause() {
-    print('Pausing on song: ${_currentSongs[_songIndex]}');
-    _paused = true;
+    _currentState = _currentState.Pause();
   }
 
   void ToggleShuffle() {
-    if (_shuffleOn) {
-      _shuffleOn = false;
-      print('Turning off shuffle');
-    } else {
-      _shuffleOn = true;
-      print('Turning on shuffle');
-    }
-
-    Next();
+    _currentState = _currentState.ToggleShuffle();
   }
 }

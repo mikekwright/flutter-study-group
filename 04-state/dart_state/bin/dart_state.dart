@@ -1,8 +1,6 @@
 import 'package:dart_state/player.dart';
 
 void main(List<String> arguments) {
-  print('Hello world!');
-
   final m = MusicPlayer('alternative');
   // 1. Play, Pause, Play
   m.Play();
