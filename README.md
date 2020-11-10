@@ -10,4 +10,4 @@ and the Dart programming language.
 - [Flutter](https://flutter.dev/)
 - [Dart](https://dart.dev/)
 - [Design Patterns](https://en.wikipedia.org/wiki/Software_design_pattern)
-
+- [Flutter Design Patterns](https://github.com/MangirdasKazlauskas/flutter-design-patterns)
